@@ -73,3 +73,11 @@ This will copy our app folder from our local device to our instance on AWS.
 
 Once this is done we can login to our AWS instance.
 
+Note that we can also use the same command to migrate a provisioning file, minus the '-r' after the key because its a file not a directory. And we can activate the script via this command:
+```
+sudo ./provison.sh
+```
+Note to give permissions via 
+```
+chmod 700 provision.sh
+```
