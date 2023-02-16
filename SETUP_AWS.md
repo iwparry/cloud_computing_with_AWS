@@ -71,4 +71,5 @@ scp -i devops-tech201.pm -r app/ ubuntu@ec2-34-243-68-165.eu-west-1.compute.amaz
 ```
 This will copy our app folder from our local device to our instance on AWS.
 
-Once this is done we can login to our AWS instance 
+Once this is done we can login to our AWS instance.
+
