@@ -1,5 +1,6 @@
 # Cloud Computing with AWS
 
+## What is cloud computing?
 
 
 ## Capital Expenditure (CapEx) vs Operational Expenditure (OpEx)
