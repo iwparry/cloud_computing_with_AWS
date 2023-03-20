@@ -59,6 +59,15 @@ CapEx is the cost of long-term investments, usually assest expected to last beyo
 
 OpEx is the cost of day-to-day operations. Examples of these include subscriptions, wages, marketing, property leaisng such as IT infrastructure on AWS etc. These are typically funded on a pay-as-you-go basis in relatively smaller sums of ongoing payments (monthly, etc.). OpEx allows for flexibility of investment as it does not trap the investor long-term like with CapEx, and because the responsibility of maintaining the products, lie with the vendor (a cloud provider). The ROI for OpEx costs tend to be earned in shorter billing cycles. One challenge with OpEx is predictability, because the cost is tied to usage it may be difficult for a company to predict the monthly cost for example. Of course cost based on usage can also be used as a positive.
 
+## AWS Cloud Use Cases
+- AWS enables you to build sophisticated, scalable applications
+- Applicable to a diverse set of industries
+
+Use cases include:
+- Enterprise IT, Backup & Storage, Big Data Analytics
+- Website Hosting, Mobile & Social Apps
+- Gaming 
+
 ## Examples of companies using the cloud
 ### Coca-cola
 Created a data lake on AWS that increased their analytics productivity by 80%.
