@@ -22,7 +22,8 @@ Once all that is done we click Launch Instance, and this should create our insta
 
 Once we are happy, we can connect to our instance by clicking on the "Actions" drop down menu at the top of the page and will take us to a "Connect to Instance Page"
 
-![](AWS_Connect_to_Instance.png)
+![](images/AWS_Connect_to_Instance.png)
+
 We wish to connect to our instance via SSH and so we follow the instructions as above.
 
 We open our Git Bash terminal and we copy the Public DNS in the fourth instruction paste into the example code shown as shown at the bottom.
@@ -33,7 +34,8 @@ ssh -i devops-tech201.pem ubuntu@ec2-34-243-68-165.eu-west-1.compute.amazonaws.c
 ```
 
 When we run this command we should see
-![](logged_in_instance.png)
+
+![](images/logged_in_instance.png)
 
 Now we know that we are logged into our instance we run a series of commands.
 

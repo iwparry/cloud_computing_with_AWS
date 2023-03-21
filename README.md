@@ -41,7 +41,7 @@ Cloud computing is the on-demand delivery of compute power, database storage, ap
 - **Agility** - Rapidly develop, test, and launch software applications.
 
 ## Different Types of Cloud Computing
-![](types-of-cloud-services.png)
+![](images/types-of-cloud-services.png)
 ### Infrastructure as a Service (IaaS)
 - Provide building blocks for cloud IT
 - Provides networking, computers, data storage space

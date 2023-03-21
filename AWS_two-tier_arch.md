@@ -9,7 +9,7 @@ A 2-tier architecture provides additional to the DBMS (Database Management Syste
 
 One of the biggest disadvantages to a monolithic architecture is that everything is bunched into a single component, and thus a single point of failure. We need to refactor into a 2-tier architecture because monolithic systems lack the agility and flexibility that modern businesses require. Also monolithic architectures are not easily scalable.
 
-![](twotier_diagram.png)
+![](images/twotier_diagram.png)
 
 # Task: Create a 2-tier architecture with app and DB layers
 
@@ -51,7 +51,7 @@ sudo systemctl status mongod
 ```
 If everything has been done correctly our output should be 
 
-![](mongod_status.png)
+![](images/mongod_status.png)
 
 After this, we edit the mongodb file configuration. From the home directory (run `cd ~` if unsure) we run
 ```
@@ -86,10 +86,10 @@ node seeds/seed.js
 ```
 If everything has worked properly we can start up our app, and if thats running as it should we can check with our IP address.
 
-![](app_on_aws.png)
+![](images/app_on_aws.png)
 
 As we can see here the app is working on the IP address that AWS generated for our instance. Note our setup involved connecting our DB instance which includes the contents of MongoDB, so we verify whether this worked aswell.
- ![](posts_on_aws.png)
+ ![](images/posts_on_aws.png)
 
  There we go! We have been able to replicate what we did on our vagrant VMs on our AWS EC2 instances!
 
@@ -97,7 +97,7 @@ As we can see here the app is working on the IP address that AWS generated for o
 
  Having instances on AWS costs money, even if they are shut down, so we could terminate them but that would mean losing everything we've set in our instance, thus having to go through the entire setup all over again. What AWS gives us is the option to create an Amazon Machine Image (AMI) for our EC2 instances. 
 
- ![](architecture_ami_instance.png)
+ ![](images/architecture_ami_instance.png)
 
  An AMI is basically a working copy of an instance that holds all the information required to launch that instance. So suppose you shut down an instance and don't restart it for a significant period of time, that will still cost money despite the instance being shut down. It is more cost effective to create a copy of that instance that can be used to relaunch the EC2 Instance later down the line should you or someone want to use it.
 
@@ -120,7 +120,7 @@ As we can see here the app is working on the IP address that AWS generated for o
  # Cloudwatch and Monitoring
  Generally speaking, when our applications are running and something goes wrong, the first group that will find out is the end user. So we need a way to be able to spot anything out of place before it has an effect on the end user. Amazon has a tool called CloudWatch.
 
- ![](cloudwatch.png)
+ ![](images/cloudwatch.png)
 
  What CloudWatch does is monitor our program, but what we can do is have it moniter certain metrics and alert us if anything is out of place. So we set the metrics to be monitored and if anything breaches the threshold that we set, then the CloudWatch alarm will alert us via SNS email notification so that we are aware that something is goung wring with our program.
 

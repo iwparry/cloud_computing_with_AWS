@@ -4,7 +4,7 @@
 
 Amazon Virtual Private Clud (VPC) is a commercial cloud computing service that provides users a virtual private cloud, by provisioning a logically isolated section of AWS Cloud. 
 
-![](VPC.png)
+![](images/VPC.png)
 
 ## How does it help businesses?
 
