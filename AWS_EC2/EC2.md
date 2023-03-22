@@ -2,18 +2,33 @@
 In AWS EC2 allows users to create virtual servers
 
 ## Creating an EC2 Instance
-An EC2 Instance is a virtual machine that we can create in the cloud, the setup of an EC2 instance covers several components
+An _EC2 Instance_ is a virtual machine that we can create in the cloud, the setup of an EC2 instance covers several components.
+
+To start off we can launch a brand new EC2 instance from the EC2 Dashboard by clicking on **Launch Instance**, alternatively we can navigate to the **Instances** window (see menu on left-hand side) and launch an instance from there.
+
+![](images/ec2-dashboard.png)
+
+We are then taken to the page below where we set up our instance.
+
+![](images/ec2-launch-instance.png)
+
+On the right-hand side we are given a brief summary of our instance including the number of instances we wish to launch, what AMI we are using, instance type, security group and storage. 
 
 ### AMI (OS)
 A preconfigured template for your instances, known as _Amazon Machine Images_, that package your server requirements (including the operating system and additional software). Amazon provides several of these already but we can create our own AMIs based off of instances we have configured.
 
 ### Instance Types
-Standard `t2.micro`
+Instance types comprise varying combinations of CPU, memory, storage, and networking capacity. Each instance type includes one or more instance sizes, allowing you to scale your resources to the requirements of your target workload. We typically use _t2.micro_ but depending on what you wish to run in your instance you may wish to opt for a larger size.
+
+### Key pair
+You may want to connect to your instance to custmise it. If so, you will need a key pair (which you are able to generate in AWS - if you are creating a new key pair choose an RSA key then save the generated .pem file in a safe location) in order to securely access your instance.
 
 ### Setting Security Groups
-A Security Group is a firewall that we attach to an EC2 instance, this controls the traffic heading in and out of our instance.
+A Security Group is a firewall that we attach to an EC2 instance, this controls the traffic heading in and out of our instance. We can use an existing security group or we can create a new security group for our instance.
 
-Note with security groups, if connecting to an instance fails due to a timeout, this implies a security group issue.
+![](images/ec2-security-group.png)
+
+_Note with security groups, if connecting to an instance fails due to a timeout, this implies a security group issue._
 
 ### Classic Ports to know
 - 22 = SSH (Secure Shell) - log into a Linux instance
@@ -23,8 +38,31 @@ Note with security groups, if connecting to an instance fails due to a timeout, 
 - 443 = HTTPS - access secured websites
 - 3389 = RDP (Remote Desktop Protocol) - log into a Windows instance
 
+Once we are happy with our set up we can click **Launch Instance**. We can now see our instance running in the **Instances** page of the AWS console.
+
+![](images/ec2-demo-instance.png)
+
+## Connecting to our EC2 Instance
+Now that our instance is up and running we can connect to it, just click on **Connect** as we can see in the previous image and we will be taken to the page below.
+
+![](images/ssh-into-ec2.png)
+
+AWS offers several options to connect to our instance but for this demo we'll connect via SSH client, for this you will have had to create or assigned a key pair to the instance, otherwise connecting this way won't be possible. Follow the instructions as shown above and execute the example command in your terminal (make sure that you are doing so from the same directory as your key pair or else you will be denied access). Once we are in, we can begin customising our EC2 instance with our desired software and configurations.
+
 ### User Data
-This feature allows us to bootstrap our instance, meaning that we provide a script to be executed inside our instance when its launched for the first time (Note to start the script off with `#!/bin/bash`)
+This feature allows us to bootstrap our instance, meaning that we provide a script to be executed inside our instance when its launched for the first time (Note to start the script off with `#!/bin/bash`). Here's a demonsration launching an instance with a user data script to launch an Nginx Server. We can find **User data** in **Advanced Settings** at the bottom of the EC2 instance set up page, we are able to enter our script right at the bottom of the page.
+
+![](images/ec2-user-data-demo.png)
+
+We can then launch our instance as we did before, but note it may take a little while longer to start running due to us having the instance bootstrapped to run a script upon launch.
+
+Once our instance is running we can check that our user data script was successful by copying the public IPv4 address (or clicking _open address_)
+
+![](images/bootstrapped-ec2.png)
+
+And here is our working Nginx server from our bootstrapped instance!
+
+![](images/nginx-bootstrapped.png)
 
 ### EC2 Instance Role
 This allows us to link an EC2 instance to an IAM role, allowing us to interact with the AWS console via `awscli` (provided that the role has the permissions to do so).

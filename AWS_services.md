@@ -44,4 +44,4 @@ Gateway Load Balancer
 - Intrusion detection
 
 ## Auto Scaling Groups (ASG)
-Allows us to scale automatically based on load to ensure that our websites and application are able to match demand at any given time.
+Allows us to scale out/in automatically based on load to ensure that our websites and application are able to match demand at any given time.
