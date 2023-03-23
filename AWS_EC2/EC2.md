@@ -4,7 +4,7 @@ In AWS EC2 allows users to create virtual servers
 ## Creating an EC2 Instance
 An _EC2 Instance_ is a virtual machine that we can create in the cloud, the setup of an EC2 instance covers several components.
 
-To start off we can launch a brand new EC2 instance from the EC2 Dashboard by clicking on **Launch Instance**, alternatively we can navigate to the **Instances** window (see menu on left-hand side) and launch an instance from there.
+To start off we can launch a brand new EC2 instance from the EC2 Dashboard by clicking on _Launch Instance_, alternatively we can navigate to the _Instances_ window (see menu on left-hand side) and launch an instance from there.
 
 ![](images/ec2-dashboard.png)
 
@@ -38,19 +38,19 @@ _Note with security groups, if connecting to an instance fails due to a timeout,
 - 443 = HTTPS - access secured websites
 - 3389 = RDP (Remote Desktop Protocol) - log into a Windows instance
 
-Once we are happy with our set up we can click **Launch Instance**. We can now see our instance running in the **Instances** page of the AWS console.
+Once we are happy with our set up we can click _Launch Instance_. We can now see our instance running in the _Instances_ page of the AWS console.
 
 ![](images/ec2-demo-instance.png)
 
 ## Connecting to our EC2 Instance
-Now that our instance is up and running we can connect to it, just click on **Connect** as we can see in the previous image and we will be taken to the page below.
+Now that our instance is up and running we can connect to it, just click on *Connect* as we can see in the previous image and we will be taken to the page below.
 
 ![](images/ssh-into-ec2.png)
 
 AWS offers several options to connect to our instance but for this demo we'll connect via SSH client, for this you will have had to create or assigned a key pair to the instance, otherwise connecting this way won't be possible. Follow the instructions as shown above and execute the example command in your terminal (make sure that you are doing so from the same directory as your key pair or else you will be denied access). Once we are in, we can begin customising our EC2 instance with our desired software and configurations.
 
 ### User Data
-This feature allows us to bootstrap our instance, meaning that we provide a script to be executed inside our instance when its launched for the first time (Note to start the script off with `#!/bin/bash`). Here's a demonsration launching an instance with a user data script to launch an Nginx Server. We can find **User data** in **Advanced Settings** at the bottom of the EC2 instance set up page, we are able to enter our script right at the bottom of the page.
+This feature allows us to bootstrap our instance, meaning that we provide a script to be executed inside our instance when its launched for the first time (Note to start the script off with `#!/bin/bash`). Here's a demonsration launching an instance with a user data script to launch an Nginx Server. We can find _User data_ in *Advanced Settings* at the bottom of the EC2 instance set up page, we are able to enter our script right at the bottom of the page.
 
 ![](images/ec2-user-data-demo.png)
 
@@ -72,8 +72,71 @@ These volumes are network drives (i.e. not physical) that we can attach to our r
 
 We can view and manage our volumes by clicking on "Volumes" in the "Elastic Block Store" dropdown on the left-hand side of the AWS console
 
+![](images/ebs-volumes.png)
+
+The volume in the snippet above is an example of a root volume, created along with our instance, these are also set to be terminated along with our instance should the attached instance be terminated. Of course we can create volumes without having to create an instance by clicking on _Create volume_ (top right corner of the snippet).
+
+![](images/create-volume.png)
+
+Once we are happy with our specifications we create our volume and we are then able to attach that volume to an instance. We can attach any **Available** volume to an instance by clicking _Actions_ and _Attach volume_ as shown below. Remember we can only attach a volume to a single instance at a time, whereas we can attach multiple volumes to a single EC2 instance.
+
+![](images/demo-vol-attach.png)
+
+Next we simply specify what instance we want our volume to be attached to. Remember that volumes are bound by AZs, therefore a volume created in eu-west-1a cannot be attached to an EC2 instance in eu-west-1b, thus in the page shown in the snippet below,you will only be shown instances from the same AZ as the volume.
+
+![](images/attach-volume.png)
+
+And now we can see two volumes attached to our instance, the root volume created with our instance and the one we created seperately.
+
+![](images/attached-volumes.png)
+
+Note that the root volume will be deleted if the attached instance is terminated, but the other volume will remain. If you have no further use for that particular volume then you will need to manually delete that volume (a volume needs to be detached before it can be deleted) which can be done in the _Volumes_ page.
+
+Note that a way around the AZ restriction placed on EBS volumes is by creating snapshots of those volumes. These snapshots in turn can be used to create other volumes in other AZs. This is useful if we want to transfer the data we have on one volume in one AZ to another.
+
+We can do this by clicking on the volume we want to make a snapshot of and then click _Actions_ then _Create snapshot_
+
+![](images/create-snapshot.png)
+
+We can then view our snapshots by navigating to _Snapshots_ under the _Elastic Block Store_ dropdown on the left-hand side of the console.
+
+![](images/ebs-snapshots.png)
+
+As you can see we can create a volume directly from this snapshot, so if we want to transfer our data from a volume in eu-west-1a to eu-west-1b we can take a snapshot of the volume in eu-west-1a and then create a volume in eu-west-1b
+
+![](images/snapshot-volume.png)
+
+Now we can attach this volume to an instance in eu-west-1b.
+
 ## Amazon Machine Image (AMI)
-When we create an instance we need to select an AMI, these can be provided to us by AWS in the form of Public AMIs, but we do have the option in AWS to create our own AMIs that will contain our desired OS, software, configurations etc. We can think of this as creating a template based on a customised EC2 instance. 
+When we create an instance we need to select an AMI, these can be provided to us by AWS in the form of Public AMIs, but we do have the option in AWS to create our own AMIs that will contain our desired OS, software, configurations etc. We can think of this as creating a template based on a customised EC2 instance.
+
+### Creating our own AMI
+In order to do this we will need to have an EC2 running with our desired customisations. Lets say we have installed an Nginx web server on an EC2 instance, suppose we wanted to create another instance that has an Nginx web server running on it, instead of us having to connect to the instance to install Nginx or bootstrapping the instance to run a script on launch, we can create an AMI based off of our first customised instance.
+
+![](images/ec2-create-image.png)
+
+To start off we need to click on _Create image_ as shown above.
+
+![](images/create-ami.png)
+
+Here we name our AMI and make any other desired customisations to. Once we're happy we can scroll down and click on _Create image_.
+
+Once created we can view our AMI in the AMIs page as shown below
+
+![](images/ami-page.png)
+
+From here we can actually directly launch an instance from our AMI by clicking on _Launch instance from AMI_. Alternatively we can go to the _Instances_ page and launch an instance as we would usually, but this time select an AMI you created which will be found under _My AMIs_
+
+![](images/launch-instance-from-ami.png)
+
+Here is our instance launched from our AMI.
+
+![](images/demo-instance-from-ami.png)
+
+And if we copy the public IP and enter in the browser we should have an Nginx server already up and running without us having to connect to the instance to install anything or having written a script in the user data.
+
+![](images/nginx-ami.png)
 
 ## Scalability
 Scalability refers to the ability to adapt based on demand. There are two types of scalability.
