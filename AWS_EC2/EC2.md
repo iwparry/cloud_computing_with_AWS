@@ -154,6 +154,8 @@ This means once a system is scalable there will be some auto-scaling so that the
 ## Application Load Balancer (ALB)
 We can create a load balancer to direct the traffic among our targeted EC2 instances. This also supports health checks of our EC2 instances.
 
+![](images/alb-diagram.png)
+
 ### Creating our ALB
 We start by navigating to _Load Balancers_, which can be found under the _Load Balancing_ dropdown on the left-hand side of the console. Then on the load balancers page click _Create load balancer_. You will then be asked to select a load balancer type, where you are given the following options: _Application Load Balancer_, _Network Load Balancer_, _Gateway Load Balancer_, _Classic Load Balancer_ (will soon no ,longer feature). For the purpose of this demo of course we will select ALB.
 
@@ -184,6 +186,9 @@ The snippet above shows the web server we have running on our first instance, wh
 Now we can see the web server we have running on our second instance, which shows that our ALB works properly and diverts traffic to all the instances we have in our target group.
 
 ## Auto Scaling Group (ASG)
+
+![](images/asg-diagram.png)
+
 The goal of an ASG is to:
 - Scale out (add EC2 instances) to match an increased load
 - Scale in (remove EC2 instances) to match a decreased load
