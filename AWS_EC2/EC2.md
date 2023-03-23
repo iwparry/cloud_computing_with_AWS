@@ -192,3 +192,48 @@ The goal of an ASG is to:
 - Replaces unhealthy instances
 
 ASG and load balancers go hand in hand!
+
+### Creating an ASG
+Similarly to our ALB we can create an ASG by navigating to _Auto Scaling groups_ on the left-hand side of our console then click _Create Auto Scaling group_. Our ASG will require a launch template to use when launching new instances, this will be the same process as launching an EC2 instance. For the purposes of this demo I will configure the template to be the same as the instances I made for our ALB.
+
+![](images/create-asg.png)
+
+We can see the steps of this process detailed on the left. If we're happy with our template, we can move onto the next step. I'm not going to go over each step but will show the last step where we review our ASG and show some settings we are particularly interested in.
+
+![](images/asg-review.png)
+
+As you can see in this snippet we have selected the ALB we used from before along with its target group, another setting we are interested is in step 4 where we define the desired, minimum, and maximum number of instances. For the purpose of this demo the maximum and minimum capacity aren't really important (but must be defined nevertheless), but we are interested in the desired capacity (which we've set to 2), this will ensure that as per our ASG we will always have 2 instances run at any given time. There are more advanced options to scale dynmically based on demand, but we'll keep things simple in this case.
+
+Once we are happy with our ASG configurations, click on _Create Auto Scaling group_.
+
+![](images/demo-asg.png)
+
+Here is our ASG created, now lets go check on our instances to see if our ASG has launched any instances (we are expecting 2 instances as per the _Desired capacity_ setting).
+
+![](images/asg-instances.png)
+
+Here are our two ASG instances up and running (note _Name_ would be blank by default I just changed to make it clear these were the instances made by the ASG) and to verify that these were indeed created by our ASG, select the instance and navigate to _Tags_ and this will verify that it was the ASG that created the instance.
+
+We can also check that our ALB directs traffic to these instances, copy the DNS name and search in the browser. So recall I've used a launch template with the same configurations as the instances from the ALB demo so these should display the same message as before but with different hostnames.
+
+![](images/asg-instance-1.png)
+
+And refresh to see if the other receives traffic.
+
+![](images/asg-instance-2.png)
+
+Great, we have a working ASG and ALB! But of course there is more to ASG than simply creating some instances, not really different to what we did with our ALB. So lets terminate one of these instances, say _ASG Instance 2_ and see what happens.
+
+![](images/asg-new-instance.png)
+
+Shortly after terminating one of our ASG instances, another has been launched in its place, lets have a look at the activity of our ASG.
+
+![](images/asg-activity.png)
+
+Here is a history of the activity of our ASG. As you can see, when created it launched two instances because we set the desired capacity to 2, we then terminated one of these instances to which the ASG responded by launching another EC2 instance in its place. So not only does the ASG launch the desired number of instances at launch, but it actively seeks to maintain that capacity by replacing unhealthy instances with new healthy ones! This illustrates how powerful a tool an ASG is, we can terminate our instances over and over, the ASG will just launch new ones in response each time. So if you do not wish for this to continue you will have to delete the ASG first.
+
+Also note these instances continue being added to our ALB target group as you can see in the snippet below the ALB directs traffic to the replacement instance.
+
+![](images/asg-replace-instance.png)
+
+Note that if you do delete the ASG, the associated instances will also be terminated.
