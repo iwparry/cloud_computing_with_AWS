@@ -154,6 +154,35 @@ This means once a system is scalable there will be some auto-scaling so that the
 ## Application Load Balancer (ALB)
 We can create a load balancer to direct the traffic among our targeted EC2 instances. This also supports health checks of our EC2 instances.
 
+### Creating our ALB
+We start by navigating to _Load Balancers_, which can be found under the _Load Balancing_ dropdown on the left-hand side of the console. Then on the load balancers page click _Create load balancer_. You will then be asked to select a load balancer type, where you are given the following options: _Application Load Balancer_, _Network Load Balancer_, _Gateway Load Balancer_, _Classic Load Balancer_ (will soon no ,longer feature). For the purpose of this demo of course we will select ALB.
+
+We will then be taken to the following page.
+
+![](images/create-alb.png)
+
+If you are still unsure about how Elastic Load Balancing works AWS provides a brief overview for you.
+
+![](images/create-alb-summary.png)
+
+Here is a summary of our configurations for our ALB where we have assigned a custom security group that we created specifically for our load balancer. We have also opted in the _Network mapping_ section to direct traffic to all AZs in _eu-west_1_.
+
+**IMPORTANT NOTE** - A target group must be defined before creating the load balancer. This target group will contain instances that we want our ALB to direct traffic to, so if you haven't done so by this point you should create a couple of instances and add them to a target group. I went back to create a target group called _demo-tg-alb_ and added two instances.
+
+Once we are happy we click _Create load balancer_.
+
+![](images/demo-alb.png)
+
+Recall that we created two instances for the target group that was attached to this load balancer. Just to show that the load balancer actually works properly and spreads traffic among the instances, I bootstraped both to install an apache http server to display the message **Hello World from** *hostname*, the hostname can be viewed on your instance details. To test our ALB, we copy the DNS name as shown above and open it in the browser.
+
+![](images/alb-instance-1.png)
+
+The snippet above shows the web server we have running on our first instance, which is great to see that the load balancer does in fact direct traffic to our instance, but lets refresh the page.
+
+![](images/alb-instance-2.png)
+
+Now we can see the web server we have running on our second instance, which shows that our ALB works properly and diverts traffic to all the instances we have in our target group.
+
 ## Auto Scaling Group (ASG)
 The goal of an ASG is to:
 - Scale out (add EC2 instances) to match an increased load
