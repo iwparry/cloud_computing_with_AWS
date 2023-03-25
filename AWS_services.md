@@ -54,3 +54,36 @@ This concept represents how many times an object is going to be lost by Amazon S
 
 ### Availability
 This measures how readily available a service is, this actually varies depending on what S3 storage class is used e.g. S3 Standard has 99.99% availability over a given year vs S3 One Zone-IA that has 99.5% availability over the same time period.
+
+## AWS Snow Family
+AWS Snow Family os a collection of physical devices that help migrate large amounts of data into and out of the cloud without depending on networks. This helps you apply the wide variety of AWS services for analytics, file systems, and archives to your data.
+
+We have 3 types of device that make up the Snow Family being the AWS Snowcone, Snowball, Snowmobile.
+
+### Data Migration
+Transferring data via a network can take a lot of time and include challenges such as limited connectivity, bandwith, high network cost, shared bandwith etc. Amazon gives us a way around this by sending us physical devices where we can download our data and send to Amazon to upload to the cloud.
+
+Rule of thumb is if it takes more than a week to transfer over the network, use Snowball devices!
+
+If you want to transfer more than 10PB of data (10,000TB) AWS Snowmobile is the better option (an actual truck!!)
+
+Snowcone is the only device in the AWS Snow Family capable of migrating data offline (its a small device), capable of migrating up to 24 TB of data.
+
+#### AWS Snowball usage process
+1. Request Snowball device from the AWS Console for delivery
+2. Install the snowball client on your servers
+3. Connect the snowball to your servers and copy files using the client
+4. Ship the device back to the correct AWS facility
+5. Data will be loaded into an S3 bucket
+6. Snowball is completely wiped
+
+### Edge Computing
+This is processig data whilst it's being created on an _edge location_, which is basically anywhere without internet that produces data e.g. a truck on the road, ship on the sea, mining station underground etc.
+
+For this we setup a _Snowball Edge_ device to do edge computing, its use cases include preprocess data, machine learing at the edge, and transcoding media streams. Eventually we can ship the device back to AWS if needed.
+
+### AWS OpsHub
+Historically to use Snow Family devices you needed a CLI, this was rather difficult so AWS created AWS OpsHub (a software we can install on our machine) to manage your Snow Family device via a graphical interface.
+
+## AWS Storage Gateway
+AWS Storage Gateway is a hubrid cloud storage service that gives you on-premise access to virtually unlimited cloud storage. The Storage Gateway provides a bridge bewteen your on-premise data and cloud data in S3, allowing on-premise systems to seamlessly use the cloud and leverage its capabilities. Use cases includ disaster recovery, backup & restore, and tiered storage.
