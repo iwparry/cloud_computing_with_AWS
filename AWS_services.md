@@ -48,3 +48,9 @@ Allows us to scale out/in automatically based on load to ensure that our website
 
 ## Amazon Simple Storage Service (S3)
 Advertised as "infinitely scaling" storage, Amazon S3 is an object storage service that offers scalability, data availability, security, and performance. Industries can use Amazon S3 to store and protect any amount of data for a range of use cases, such as data lakes, websites, mobile applications, backup and restore, and more.
+
+### Durability
+This concept represents how many times an object is going to be lost by Amazon S3. S3 has incredibly high durability, it is said on average that if you store 10 million objects with Amazon S3, you can expect to lose a single object once every 10 thousand years.
+
+### Availability
+This measures how readily available a service is, this actually varies depending on what S3 storage class is used e.g. S3 Standard has 99.99% availability over a given year vs S3 One Zone-IA that has 99.5% availability over the same time period.
