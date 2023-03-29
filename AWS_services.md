@@ -5,7 +5,7 @@ This markdown provides some overview of some of the many cloud products on offer
 
 ## IAM  - Identity and Access Management
 IAM is an example of a Global service in AWS (available in all AWS regions). IAM allows you to specify who or what can access services and resources in AWS and centrally manage permissions that control which AWS resources users can access.
-## EC2 - Elastic Compute Cloud
+# EC2 - Elastic Compute Cloud
 One of the most popular services AWS has to offer. Amazon EC2 is a web service that provides resizable computing capacity that you use to build and host your software systems. Some of its features include virtual computing environments (instances), preconfigured templates for your instances (AMIs) and more.
 
 ## EBS Volume - Elastic Block Store
@@ -46,7 +46,7 @@ Gateway Load Balancer
 ## Auto Scaling Groups (ASG)
 Allows us to scale out/in automatically based on load to ensure that our websites and application are able to match demand at any given time.
 
-## Amazon Simple Storage Service (S3)
+# Amazon Simple Storage Service (S3)
 Advertised as "infinitely scaling" storage, Amazon S3 is an object storage service that offers scalability, data availability, security, and performance. Industries can use Amazon S3 to store and protect any amount of data for a range of use cases, such as data lakes, websites, mobile applications, backup and restore, and more.
 
 ### Durability
@@ -87,3 +87,116 @@ Historically to use Snow Family devices you needed a CLI, this was rather diffic
 
 ## AWS Storage Gateway
 AWS Storage Gateway is a hubrid cloud storage service that gives you on-premise access to virtually unlimited cloud storage. The Storage Gateway provides a bridge bewteen your on-premise data and cloud data in S3, allowing on-premise systems to seamlessly use the cloud and leverage its capabilities. Use cases includ disaster recovery, backup & restore, and tiered storage.
+
+# Databases & Analytics
+## AWS RDS (Relational Database Service)
+Is a managed database service for databases that use SQL as a query language. It allows you to create databases in the cloud that are managed by AWS. Because RDS is a managed service it gives us the following advantages over deploying our databases on EC2: 
+- Database provisioning is automatic, patching of the OS is done by AWS
+- Continuous backups and restore options to specific timestamp
+- Monitoring dashboards
+- Multi AZ setup for disaster recovery
+- Scaling capability (vertical and horizontal)
+- Storage backed by EBS
+
+### RDS Deployments
+#### Read Replicas
+- Scale the read workload of your database
+- Can create up to 15 Read Replicas
+- Data is only written to the main database
+#### Multi-AZ
+- Failover in case of an AZ outage (high availability)
+- Basically a cross AZ replica of a database
+- Data is only read/written to the main database
+- The failover database is passive (not accessible) unless there is an issue with the main database
+- Can only have 1 other AZ as failover
+#### Multi-Region (Read Replicas)
+- Read Replicas are going to be in a different region to the main database
+- Enables applications in other regions to read locally from the Read Replica
+- Writes happen cross-region (e.g. main db in eu-west-1 , app in us-east-2 must write from there)
+- A disaster recovery strategy in case of regional issues
+- Enables better performance for applications we have in other regions (due to having a local Read Replica)
+
+Note there is a replication cost for transferring data accross regions
+
+## Amazon Aurora
+Like RDS Aurora is a managed database service that enable you to create __relational databases__ on AWS. Aurora is a proprietary technology from AWS (not open sourced). Aurora supports two kind of database technologies, being PostgreSQL and MySQL. Aurora is cloud optimized and claims 5x perrformance improvement over MySQL on RDS, and over 3x the performance of Postgres on RDS. Aurora storage automatically grows incrementally (increments of 10GB) upt to 128TB. Whilst Aurora costs 20% more than RDS it is more efficient.
+
+## Amazon ElastiCache
+Works similarly to RDS with managed relational databases, ElastiCache is used to get managed Redis or Mamcached databases. Caches are __in-memory__ databases with high performance and low latency and helps reduce the load off databases for read intensive workloads. Like RDS, ElastiCache is a managed AWS service.
+
+## DynamoDB
+A fully managed and highly available database with replication accros 3 AZs. It is part of the __NoSQL database__ family, meaning it is __not a relational database__. It scales to massive workloads (millions of request per seconds, trillions of rows, 100s of TB of storage) and is a distributed _serverless_ database. It is fast and consistent in its performace and has incredibly low latency retrieval (single-digit millisecond latency). DynamoDB is a key/value database and provides a flexible way of insert data.
+
+### DynamoDB Accelerator (DAX)
+Is a fully managed in-memory cache for DynamoDB, provides a 10x performance improvement when accessing your DynamoDB tables, so is better to use this instead of ElastiCache. Its secure, highly available and scalable. Note __DAX is only used for and is well integrated with DynamoDB__, while ElastiCache can be used for other databases.
+
+### Global Tables
+Is a feature for DynamoDB that makes a DynamoDB table accessible with low latency in multiple regions. It allows users to read/write to any AWS Region because the DynamoDB table is replicated accross regions making it __Active-Active__ replication.
+
+## Redshift
+Is a database that is based on PostgreSQL, but is __not used for OLTP__ (online transaction processing), it's __OLAP (online analytical processing)__ used to do __analytics and data warehousing__. Data isn't continuously loaded, i.e. data is loaded once every hour and is stored in colums rather than rows, making Redshift a __columnar__ storage of data.
+
+## Amazon EMR (Elastic Map Reduce)
+EMR helps creating __Hadoop clusters (Big Data)__ to analyze and process vast amounts of data. The clusters can be made of __hundreds of EC2 instances__. Use cases for EMR include data processing, machine learning, web indexing, and big data in general.
+
+## Amazon Athena
+A __serverless__ query service to __perform analytics against S3 objects__ that uses standard SQL language to query the files.
+
+## Amazon QuickSight
+A serverless machine learning-powered business intelligence service to create interactive dashboards. It is integrated with RDS, Aurora, Athena, Redshift etc.
+
+## DocumentDB
+DocumentDB is the AWS-implementation of mongoDB (NoSQL Database)
+
+## Amazon Neptune
+Neptune is a fully managed __graph__ database. A popular __graph dataset__ would be a __social network__.
+
+## QLDB
+Stands for Quantum Ledger Database, QLDB is a fully managed database, is serverless, highly available and provides replication accross 3 AZs. Note a ledger is a book that __records financial transactions__. QLDB is used to __review history of all the changes made to your application data__ over time. It is an __immutable__ system, which means no entry can be removed or modified. In QLDB there is __no decentralization component__, in accordance with financial regulation rules.
+
+## Amazon Managed Blockchain
+Blockchain makes it possible to build applications where multiple parties can execute transactions _without the need to a trusted, central authority__, meaning unlike QLDB there is a __decentralization__ aspect to blockchain. Amazon Managed Blockchain is compatible with the frameworks __Hyperledger Fabric__ and __Ethereum__
+
+## AWS Glue
+Managed __extract, transformm and load (ETL)__ service and is fully __serverless__.
+
+## DMS
+Stands for __Database Migration Service__. Is a quick and secure way to migrate databases to AWS, is resilient and self-healing. 
+
+# ECS - Elastic Container Service
+This is used to launch __Docker containers__ on AWS, you must provision & maintain the infrastructure yourself (EC2 instances created in advanced).
+
+## Fargate
+This is also used to launch Docker containers on AWS, however it does not require you to provision the infrastructure (no EC2 instances to set up), so is simpler than ECS and is a serverless offering.
+
+## ECR - Elastic Container Registry
+This is a private Docker Registry on AWS, this is where you store your Docker images so they can by run by ECS or Fargate. Think of it as an AWS version of DockerHub (but private of course).
+
+# Serverless
+A paradigm in which developers don't have to manage servers anymore. Serverless was pioneered by AWS Lambda but now also includes anything that is managed (so databases, messaging, storage, etc.).
+
+__NOTE: Serverless doesn't mean there are no servers involved, it simply means that you do not manage/provision/see them__
+
+Some serverless services we've encountered so far are Amazon S3, DynamoDB, Fargate.
+
+## AWS Lambda
+AWS Lambda is an __event-driven__, serverless computing service that runs code in response to events and automatically manages the computing resources required by that code.
+
+### Advantages over EC2
+- No servers to manage - instead we have virtual __functions__
+- These functions are limited by time, intended for __shorter execution__ times
+- They run __on-demand__, so if we need them they will run, if not they won't
+- __Scaling is automated__
+
+With AWS Lambda, you pay per call (requests) and per duration (in increments of 1 ms). Its usually very cheap to run AWS Lambda so it's a very popular way to run serverless applications.
+
+## Amazon API Gateway
+Fully managed service for developers to easily creaet, publish, maintain, monitor, and secure APIs in the cloud. Its both __serverless__ and scalable, and supports RESTful APIs and WebSocket APIs.
+
+## AWS Batch
+This is a fully managed batch processing service allowing you to do batch processing at __any scale__. It is able to efficiently run 100,000s of computing batch jobs on AWS. Batch will dynamically launch __EC2 instances__ or __Spot Instances__, all that is needede from the user is to submit and scheduler batch jobs and the rest is executed by AWS Batch. Batch jobs are defined as __Docker images__ and run on ECS.
+
+Batch = a job with a start and an end
+
+# Amazon Lightsail
+Considered somewhat a standalone service in AWS, with Lightsail you are able to get viortual servers, storage, databases, and networking all in one place. Amazon Lightsail is a simpler alternative to using EC2, RDS, ELB, EBS, etc. It is a great tool for people __with little to no cloud experience__. Has high availability but no auto-scaling.
