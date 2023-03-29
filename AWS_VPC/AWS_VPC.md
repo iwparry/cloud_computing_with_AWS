@@ -30,8 +30,8 @@ Classless Inter-Domain Routing (CIDR) notation is a way of representing an IP ad
 ## Internet Gateway
 An Internet Gateway is a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet.
 
-## Network Access Control List
-
+## Network Access Control List (NACL)
+A network access control list (ACL) allows or denies specific inbound or outbound traffic at the subnet level. You can use the default network ACL for your VPC, or you can create a custom network ACL for your VPC with rules that are similar to the rules for your security groups in order to add an additional layer of security to your VPC.
 
 # Guide to make our VPC with IG, SN and RT
 1. Create a VPC
