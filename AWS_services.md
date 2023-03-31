@@ -312,3 +312,32 @@ SNS is a managed service that provides message deliver from publishers to subscr
 
 ## Amazon MQ
 Amazon MQ is a managed message broker service for Apache ActiveMQ and RabbitMQ that streamlines setup, operation, and management of message brokers on AWS. ActiveMQ and RabbitMQ are on-premises technologies that provide you access to open protocols such as MQTT, ZMQP, STOMP, Openwire, WSS. When migrating to the cloud, instead of re-engineering the application to use SQS and SNS, you can use Amazon MQ.
+
+# Cloud Monitoring
+## Amazon CloudWatch
+Amazon CloudWatch is a monitoring and management service that provides data and actionable insights for AWS, hybrid, and on-premises applications and infrastructure resources. You can collect and access all your performance and operational data in the form of logs and metrics from a single platform.
+### Metrics
+CloudWatch provides metrics for every servcie in AWS. A metric is a variable to monitor, for example CPUUtilization. CloudWatch enables you to create a metrics dashboard in order to visualize your metrics.
+#### Important metrics for AWS services
+__EC2 instances__ - CPUUtilization, Status Checks, Network (not RAM)
+
+__EBS volumes__ - Disk Read/Writes
+
+__S3 buckets__ - BucketSizeBythes, NumberOfObjects, AllRequests
+
+__Billing__ - Total Estimated Charge (only in us-east-1)
+
+__Service limits__ - How much you've been using a service API
+
+__Custom metrics__ - Allows you to push your own metrics
+
+### Alarms
+Alarms are used to trigger notifications for any metric. 
+### Alarms actions
+__Auto Scaling__ - increase or decrease EC2 instances "desired" count
+
+__EC2 Actions__ - stop, terminate, reboot, or recover an EC2 instance
+
+__SNS notifications__ - send a notification into an SNS topic
+
+Alarm States: OK, INSUFFICIENT_DATA, ALARM
