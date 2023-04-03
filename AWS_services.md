@@ -373,3 +373,30 @@ CodeGuru provides two functionalities:
 
 ## AWS Health Dashboard
 AWS Health Dashboard gives you a personalised view into the performance and availability of the AWS services underlying your AWS resources.
+
+# VPC & Networking
+## VPC
+Amazon Virtual Private Clud (VPC) is a commercial cloud computing service that provides users a virtual private cloud, by provisioning a logically isolated section of AWS Cloud. Amazon VPC enables you to build a virtual network in the AWS cloud.
+### IP Addresses in AWS
+There are two kinds of IPs in AWS:
+
+__IPv4__ - _Internet Protocol version 4_:
+- Public IPv4 can be used on the internet
+- EC2 instances are assigned a new public IP address every time it starts (even if not terminated)
+- Private IPv4 can be used on private networks (LAN) such as internal AWS networking
+- Private IPv4 is fixed for EC2 instances once created
+
+__Elastic IP__ - allows you to attach a fixed public IPv4 address to an EC2 instance
+
+__IPv6__ - _Internet Protocol version 6_:
+- Each IP address is public
+- Example: 2001:db4:6666:9999:aaaa:mmmm:nnnn:iiii
+
+## Subnets
+A subnet is a range of IP addresses in your VPC. You can launch AWS resources, such as EC2 instances, into a specific subnet. Simply put, subnets allows you to partition your network inside your VPC. Whilst a VPC is a "regional resource" (bound by region), subnets are an AZ resource (bount by availability zones).
+
+## Internet Gateway
+An Internet Gateway helps communication between our VPC and the Internet. A **public subnet** has a direct route to an internet gateway. Resources in a public subnet can access the public internet. A **private subnet** does not have a direct route to an internet gateway. Resources in a private subnet require a NAT device to access the public internet.
+
+## NAT Gateway
+A NAT Gateway (AWS-managed) and NAT Instances (self-managed) allow instances in your private subnets to access the internet whilst remaining private.
