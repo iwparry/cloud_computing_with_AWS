@@ -60,3 +60,33 @@ Here we can specify the SNS topic, alarm action, and conditions for our instance
 Here we can view all of our CloudWatch alarms. 
 
 Note there is one kind of alarm that is only available to use in AWS N.Virginia Region (us-east-1), and that is a Billing alarm.
+
+## Logs
+CloudWatch Logs enables you to centralise the logs from all your systems, applications, and AWS services you use. 
+
+You can use Amazon CloudWatch Logs to monitor, store, and access your log files from:
+- ELastic Beanstalk: collection from application
+- ECS: Collection from containers
+- AWS Lambda: collection from function logs
+- CloudTrail based on filter
+- CloudWatch log agents: on EC2 machines or on-premises servers
+- Route53: Log DNS queries
+
+### Using CloudWatch Logs
+We can begin using CloudWatch Logs by clicking on _Logs_ on the left-hand side of the CloudWatch console and click on _Log groups_. Here you can see logs for AWS services you use. Note not all logs are created automatically like these below.
+
+![](images/log-groups.png)
+
+Here we have some log groups for some services in AWS that we've used. Note there are none for EC2 instances, that's because we would have to install log agents.
+
+If we click on a log group we can view more information about that group, such as log streams.
+
+![](images/logs-demo-lambda.png)
+
+A log stream is a sequence of log events that share the same source. More specifically, a log stream is generally intended to represent the sequence of events coming from the application instance or resource being monitored.
+
+![](images/log-events.png)
+
+Here we can see log events, for AWS Lambda, these are created each time the code is run. 
+
+CloudWatch Logs is useful as it allows us to troubleshoot errors in our programs by looking at log events within log groups for your applications, you can also perform log analytics, montoring, alerting, etc.

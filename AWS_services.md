@@ -341,3 +341,35 @@ __EC2 Actions__ - stop, terminate, reboot, or recover an EC2 instance
 __SNS notifications__ - send a notification into an SNS topic
 
 Alarm States: OK, INSUFFICIENT_DATA, ALARM
+
+### Logs
+CloudWatch Logs enables you to centralise the logs from all your systems, applications, and AWS services you use. 
+
+You can use Amazon CloudWatch Logs to monitor, store, and access your log files from:
+- ELastic Beanstalk: collection from application
+- ECS: Collection from containers
+- AWS Lambda: collection from function logs
+- CloudTrail based on filter
+- CloudWatch log agents: on EC2 machines or on-premises servers
+- Route53: Log DNS queries
+
+## Amazon EventBridge
+Formerly CloudWatch Events, EventBridge is a serverless service that uses events to connect application components together, making it easier for you to build scalable ebent-driven applications.
+
+## AWS CloudTrail
+CloudTrail enables auditing, security monitoring, and operational troubleshooting by tracking user activity and API usage. CloudTrail is enabled by default, a trail can be applied to all regions (default) or a single region.
+
+## AWS X-Ray
+Provides visual analysis of our applications, providing a complete view of requests as they travel through the application and filters visual data accross payloads, functions, traces, services, APIs, and more with no-code and low-code motions.
+
+The advantages to AWS X-Ray includes troubleshooting performance, understand dependencies in a microservices architecture, pinpoint service issues, identify users that are impacted, etc.
+
+## Amazon CodeGuru
+A ML-powered (Machine Learning) service for automated code reviews and application performance recommendations.
+
+CodeGuru provides two functionalities:
+1. CodeGuru Reviewer: Automated code reviews for static code analysis
+2. CodeGuru Profiler: Visibility/recommendations about application performance during production
+
+## AWS Health Dashboard
+AWS Health Dashboard gives you a personalised view into the performance and availability of the AWS services underlying your AWS resources.
