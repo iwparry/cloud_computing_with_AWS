@@ -567,3 +567,222 @@ Amazon Personalize is a fully managed ML-service used to build apps with real-ti
 
 ## Textract
 Amazon Textract is a ML service that automatically extracts text, handwriting, and data from scanned documents. It goes beyond simple optical character recognition (OCR) to identify, understand, and extract data from forms and tables.
+
+# Account Managaement, Billing & Support
+
+## Organizations
+AWS Organization is a global service that allows you to manage multiple AWS accounts, with the main account being the master account, and all other accounts being child accounts.
+
+Cost Benefits:
+- Consolidated Billing
+- Aggregatd usage
+- Pooling of Reserved EC2 instances
+
+With AWS Organizations there is an API available to automate the creation of an AWS account. Organizations also allows you to restrict account privileges using Service Control Policies (SCP).
+### Multi Account Strategies
+You can create accounts per:
+- Department
+- Cost centre
+- environments (dev/test/production)
+
+These can be created based on regulatory restrictions (using SCP), for better resource isolation (e.g. VPC), to have separate per-account service limits, isolated account for logging.
+
+### Service Control Policies (SCP)
+- Whitelist or blacklist IAM actions
+- Applied at the OU or Account level
+- Does not apply to the Master Account
+- SCP is applied to all Users and Roles of the Account, including Root
+- The SCP does not affect service-linked roles
+- SCP must have an explicit Allow (does not allow anything by default)
+
+### Consolidated Billing
+When this is enabled for Organizations, it provides you with the combined usage accross all AWS accounts in the AWS Organization to share the volume priving, reserved instances and savings plan discounts. Thus we are able to get one bill for all AWS accounts in the AWS Organization.
+
+## AWS Control Tower
+An easy way to set up and govern a secure and compliant multi-account AWS environment based on best practices. AWS Control Tower runs on top of AWS Organizations, meaning it can automatically set up AWS Organizations to organise accounts and implement SCP.
+
+## Service Catalog
+Users that are new to AWS have too many options and may create stacks that are not compliant with the rest of the organization, and some users just want a quick self-service portal to launch a set of authorized products that have been pre-defined by admins. Service Catalog enables organisations to create and manage catalogs of IT services that are approved for AWS, and these services can include everything from virtual machines, servers, databases, and more to complete multi-tier application architectures. Service Catalog allows organizations to centrally manage commonly deployed IT services, and helps organizations achieve consistent governance and meet compliance requirements. End users can quickly deploy only the approved IT services they need, following the constraints set by your organization.
+
+## Pricing Models in AWS
+AWS has 4 pricing models:
+- Pay as you go - pay for what you use
+- Save when you reserve
+- Pay less by using more - volume-based discounts
+- Pay less as AWS grows
+## Free services & free tier in AWS
+### Free services
+- IAM
+- VPC
+- Consolidated Billing
+- _Elastic Beanstalk_
+- _CloudFormation_
+- _Auto Scaling Groups_
+
+_Note whilst these services are free you do pay for the resources they create._
+### Free tier
+https://aws.amazon.com/free/
+
+## Compute Pricing
+### EC2
+- On-demand instances
+- Reserved instances (up to 75% discount compared to On-demand or hourly rate)
+- Spot instances (up to 90% discount compared to On-demand or hourly rate)
+- Dedicated Host
+- Savings plans
+### Lambda & ECS
+Lambda:
+- Pay per call
+- Pay per duration
+
+ECS:
+- EC2 Launch Type Model: No additional fees, you pay for the resources stored and created in your application
+
+Fargate:
+- Fargate Launch Type Model: Pay for vCPU and memory resources allocated to your applications in your containers
+
+## Storage Pricing
+### S3
+Storage class:
+- S3 Standard
+- S3 Infrequent Access
+- S3 One-Zone IA
+- S3 Intelligent Tiering
+- S3 Glacier and S3 Glacier Deep Archive
+
+Similar service: EFS (pay per use, has infrequent access & lifecycle rules)
+
+### EBS
+- Volume type (based on performance)
+- Storage volume in GB per month provisioned
+- Snapshots
+- IOPS
+- Data transfer
+
+## Database Pricing
+### RDS
+- Per hour billing
+- Database characteristics
+- Purchase types: On-demand, and Reserved instances (1 or 3 years)
+- Additional storage (per GB per month)
+- Deployment type (single or multi AZ)
+- Data transfer (inbound is free)
+
+## Content Delivery
+### CloudFront
+- Pricing is deifferent accross different geographic regions
+- Aggregated for each edge location, then applied to your bill
+- Data Transfer Out (volume discount available)
+- Number of HTTP/HTTPS requests
+
+## Savings Plan
+Savings Plans is a flexible pricing model that provides savings of up to 72% on your AWS compute usage. Savings Plans offer significant savings over on-demand instances, just like EC2 Reserved instances, in exchange for a commitment to use a specific amount of compute power (measured in $/hour) for a one or three-year period.
+
+The two types of savings plans are:
+
+### EC2 Savings Plan
+- Up to 72% discount compared to On-demand
+- Commit usage to individual instance familier in a region (e.g. C5 or M5)
+- Regardless of AZ, size, OS, or tenancy
+### Compute Savings Plan
+- Up to 66% discount compared to On-demand
+- Regardless of Family, Region, size, OS, tenancy, compute options
+- Compute Options: EC2, Fargate, Lambda
+### Machine Learning Savings Plan
+- Applies to services like SageMaker
+- Setup from the AWS Cost Explorer console
+
+## AWS Compute Optimizer
+Compute Optimizer is used to reduce costs and improve performance by recommending optimal AWS resources for your workloads. Compute Optimizer analyses the configuration and utilization metrics of your AWS resources and reports whether your resources are optimal, it does this via Machine Learning. Its supported resources includes EC2 instances, ASG, EBS volumes, Lambda functions and can lower your costs by up to 25%.
+
+# Billing and Costing Tools
+## Estimating costs in the cloud
+### Pricing Calculator
+A tool that is used to estimate the cost for your solution architecture.
+
+## Tracking Costs in the Cloud
+### Billing Dashboard
+A tool that will give you a high level overview of your costs for the month (including forecasts)
+### Free Tier Dashboard
+Shows usage of all free tier resources for the month.
+### Cost Allocation Tags
+A tool that we can use to track our AWS costs on a detailed level. There are two types of tags which are AWS generated tags (starts with prefix aws:), and User-defined tags (starts with prefix user:)
+### Tagging and Resource Groups
+Tags are used for organising resources e.g. EC2 instances, security groups, load balancers, RDS, VPC resources, IAM users, and resources created by CloudFormation. Common tags are: Name, Environment, Team, etc. Tags can be used to create Resource Groups to create, maintain, and view a collection of resources that share common tags, these tags can be managed using the Tag Editor.
+### Cost and Usage Reports
+This allows you to dive deeper into your AWS costs and usage. The AWS Cost and Usage Report contains the most comprehensive set of AWS cost and usage data available, including additional metadata about AWS services, pricing, and reservations (e.g. EC2 Reserved Instances).
+### Cost Explorer
+A tool used to visualise, understand, and manage your AWS costs and usage over time. It allows you to create custom reports that analyse cost and usage data at a high level. With Cost Explorer you can access your optimal savings plan to lower your bill and you can forecast usage up to 12 months based on previous usage.
+
+## Monitoring Costs in the Cloud
+### Billing Alarms in CloudWatch
+The billing data metric is sored in CloudWatch us-east-1 region only, this metric is for an aggregated worldwide cost i.e. your costs accross all AWS regions. This is intended as a simple alarm in AWS to trigger and notify you incase you cross a certain threshold.
+
+### AWS Budgets
+Budgets is a tool you can use to send alarms when your costs or forecasts exceed your defined budget. The 3 types of budgets are Usage, Cost, and Reservation.
+
+### Cost Anomaly Detection
+This is a service that cintinuously monitor your cost and usage using ML to detect unusual spends. It learns your unique historic spend patterns to detect one-time cost spike and/or continuous cost increases. If an anomaly is detected it will send you a report with root-cause analysis, you can get notified with individual alerts or daily/weekly summary using SNS.
+
+### AWS Service Quotas
+Service Quotas is an AWS service that helps you manage your quotas for many AWS services, from one location. Along with looking up the quota values, you can also request a quota increase from the Service Quotas console.
+
+## Trusted Advisor
+A service that provides a high level AWS account assessment. Trusted Advisor will analyse your AWS accounts and provides recommendations on 5 categories:
+1. Cost optimization
+2. Performance
+3. Security
+4. Fault tolerance
+5. Service limits
+
+### Support Plans
+There are __7 core checks__ available to us by default for Basic & Developer Support plan:
+- S3 Bucket Permissions
+- Security Groups - Specific Ports Unrestricted
+- IAM Use
+- MFA on Root Account
+- EBS Public Snapshots
+- RDS Public Snapshots
+- Servcie Limits
+
+Then there are __full checks__ for Business & Enterprise Support plan:
+- Full checks available on the 5 categories of Trusted Advisor
+- Ability to set CloudWatch alarms when reaching limits
+- Programmatic Access using AWS Support API
+
+## Support Plans Pricing
+There are several support plans available in AWS.
+### Basic Support Plan
+This plan is free, you get 24/7 access to customer service, documentation, whitepapers, and support forums. For AWS Trusted Advisor we only get access to the 7 core checks. We also have access to the AWS Personal Health Dashboard.
+### Developer Support Plan
+You get everything from the basic support plan as well as business hours email access to Cloud Support Associates.
+### Business Support Plan (24/7)
+This is a plan intended to be used if you have production workloads. With regards to Trusted Advisor, this support plan allows you to benefit from the full set of checks and API access. You are also granted 24/7 phone, email, and chat access to Cloud Support Engineers. You can also gain access to Infrastructure Event Management for an additional fee. For the Business Support plan if you have reported cases of your production system being impaired you should expect a response time of less than 4 hours (less than 1 hour if the system is down).
+### Enterprise On-Ramp Support Plan (24/7)
+Intended to be used uf you have production or business critical workloads. This has everything in the Busiess Support plan as well as access to a pool of Technical Account Managers, a Concierge Support Team for billing and account best practices, and you can get Infrastructure Event Management, Well-Architected & Operations Reviews. In terms of case response times, it is the same as the Business support plan however if a business-critical system is down you can expect a response time of less than 30 minutes.
+### Enterprise Support Plan (24/7)
+Intended to be used if you have mission critical workloads. This plan has all of the Business Support plan as well some of the other features of On-Ramp, but with a designated TAM, and for a case of a business-critical system being down the response time is less than 15 minutes.
+
+# Advanced Identity
+##  Security Token Service (STS)
+This is a web service that enables you to request temporary, limited-privilege credentials for users.
+
+## Amazon Cognito
+A way to provide identity for your Web and Mobile application users. Instead of creating them as IAM users, you create a user in Cognito.
+
+## Directory Services
+AWS Directory Service provides multiple ways to use Microsoft Active Directory (AD) with other AWS services. Directories store information about users, groups, and devices, and administrators use them to manage access to information and resources.
+
+The three flavours of AWS Directory Services are:
+#### AWS Managed Microsoft AD
+- Create your own AD in AWS, manage users locally, supports MFA
+- Establish "trust" connections with your on-prem AD
+#### AD Connector
+- Directory Gateway (proxy) to rediract to on-ppremise AD, supports MFA
+- Users are managed on the on-prem AD
+#### Simple AD
+- AD-compatible managed directory on AWS
+- Cannot be joined with on-prem AD
+
+## IAM Identity Center
+The successor to AWS Single Sign-On, this provides one ligin for all your AWS accounts in AWS Organizations.
