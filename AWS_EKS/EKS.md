@@ -42,4 +42,25 @@ Which should give us the following output
 
 If you have any issues with this such as unauthorised or access denied, view https://docs.aws.amazon.com/eks/latest/userguide/troubleshooting.html#unauthorized.
 
-Now that everything is set up for our cluster we can move on to creating nodes.
+Now that everything is set up for our cluster we can move on to creating a node group.
+
+## Creating a Node Group
+In EKS a node group is one or more Amazon EC2 instances that are deployed in an Amazon EC2 auto scaling group. All instances in a node group will be the same instance type, running the same AMI and use the same EKS node IAM role.
+
+To create a node group we need our cluster status to be active, then we navigate to _Compute_ and then scroll down to _Node groups_ and click on _Add node group_.
+
+![](images/add-node-group.png)
+
+Then we are taken to the following page to configure our node group, note that our nodes will require an IAM role, a different one to our cluster!
+
+![](images/node-group-conf.png)
+
+Also in relation to the IAM roles, these need to be roles for EC2 instances since the nodes in your node group will be EC2 instances.
+
+In this section you are given the option to configure the node group using a launch template, you can do this or you can specify your instance configurations in the next step.
+
+![](images/comp-as-conf.png)
+
+Here you can also set your auto scaling configurations for your node groups. In the next step you set networking for your nodes, you can enable SSH access, specifying a key pair and selecting a security group for your nodes.
+
+Once you have reviewed your node group configurations and are satisfied, create your node group, the process may take several minutes. Once created there should be an auto scaling group and the desired number of EC2 instances running.
