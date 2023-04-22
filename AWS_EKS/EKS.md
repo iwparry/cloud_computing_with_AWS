@@ -64,3 +64,80 @@ In this section you are given the option to configure the node group using a lau
 Here you can also set your auto scaling configurations for your node groups. In the next step you set networking for your nodes, you can enable SSH access, specifying a key pair and selecting a security group for your nodes.
 
 Once you have reviewed your node group configurations and are satisfied, create your node group, the process may take several minutes. Once created there should be an auto scaling group and the desired number of EC2 instances running.
+
+## Hosting a Web Server in our Cluster
+Now that we have created our cluster and nodes, lets host an Nginx web server in our EKS cluster. In our terminal we should navigate to the location of the file we are going to run in order to create a deployment and a service.
+
+The file I will use to launch these is `nginx.yml` which contains the following
+```yml
+# Deployment
+apiVersion: apps/v1 # the api we want to ue for deployment 
+kind: Deployment # the kind of object we want to create
+
+metadata:
+  name: nginx-deploy # naming the deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx #  look for this label to match with k8 service
+  replicas: 1 # Create replicas of this with instances/pods
+
+  template:
+    metadata:
+      labels:
+        app: nginx # This label connects to the service
+    # Lets define another container spec
+    spec:
+      containers:
+      - name: nginx
+        image: iwparry/tech201-nginx:latest 
+        ports:
+        - containerPort: 80
+---
+# Service
+apiVersion: v1 # the api we want to use for service
+kind: Service
+
+metadata:
+  name: nginx-svc
+
+spec:
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30001 # range 30000-32768
+  
+  selector:
+    app: nginx # this label connects this service to deployment
+```
+To create these we run the following command in our terminal
+```
+kubectl create -f nginx.yml
+```
+Which should return the following output
+
+![](images/kubectl-create-nginx.png)
+
+If we wanted to verify that everything is up and running we can run the following command in our terminal
+```
+kubectl get all
+```
+Which returns
+
+![](images/kubectl-get-all.png)
+
+These are all the resources we want to be running in our cluster. Alternatively, we can find these resources in the EKS console by navigating into the _Resources_ section of our cluster.
+
+![](images/resources.png)
+
+We can see our Nginx deployment pod right at the bottom of the above snippet. We can also view the services, deployments, and replica sets in the EKS console to view the same information as shown in the output to `kubectl get all`.
+
+Now lets see if our web server is working properly, inside our cluster, navigate to _Compute_ and you should find the nodes of your node group, click on the node and you should be able to then access the EC2 instance of that node from there. Copy the public IP of you EC2 instance and search in the browser.
+
+__IMPORTANT__ - For this to work, ensure that your security group contains the correct rules, in this case I need to ensure that my security group has a rule for NodePort (the full range or specific port should do).
+
+![](images/eks-nginx.png)
+
+There we have it! Our Nginx web server is running in our EKS cluster!
