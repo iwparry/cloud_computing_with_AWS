@@ -199,7 +199,7 @@ This is a fully managed batch processing service allowing you to do batch proces
 Batch = a job with a start and an end
 
 # Amazon Lightsail
-Considered somewhat a standalone service in AWS, with Lightsail you are able to get viortual servers, storage, databases, and networking all in one place. Amazon Lightsail is a simpler alternative to using EC2, RDS, ELB, EBS, etc. It is a great tool for people __with little to no cloud experience__. Has high availability but no auto-scaling.
+Considered somewhat a standalone service in AWS, with Lightsail you are able to get virtual servers, storage, databases, and networking all in one place. Amazon Lightsail is a simpler alternative to using EC2, RDS, ELB, EBS, etc. It is a great tool for people __with little to no cloud experience__. Has high availability but no auto-scaling.
 # Deployments & Managing Infrastructure
 ## CloudFormation
 AWS CloudFormation is an infrastructure as code (IaC) service that allows you to easily model, provision, and manage AWS and third-party resources. CloudFormation does this in a declarative fashion, meaning that the user is simply declare the desired state of your infrastructure (i.e. I want a VPC, I want an internet gateway, I want a subnet, I want a route table, I want a security group, and I want an EC2 instance using that security group running inside this subnet), CloudFormation then spins up the infrastructure for you, in the __right order__, with the __exact configuration__ that you specify.
