@@ -56,3 +56,30 @@ Another way that IAM enables you to secure your AWS account is MFA which is as t
 - Virtual MFA devices: Google Authenticator for example. Supports multiple tokens on a single device.
 - U2F Security Key: Supports for multiple root and IAM users using a single security key
 - Hardware Key Fob MFA Device: Allows you to receive a security token with a hardware device.
+
+## IAM Roles
+An IAM __role__ in AWS is essentially a set of permissions assigned to AWS services. There may be cases where we need AWS services to perform actions for us on our behalf, but to do this they require permissions, which we assign to them with IAM roles. Roles can also be used to delegate access to users that don't normally have access to your AWS resources. Roles and users in IAM are similiar except roles are not uniquely associeted with one person.
+
+Roles can be used for the following:
+- An IAM user in the same AWS account as the role
+- An IAM user in a different AWS accouny than the role
+- A web service offered by AWS such as EC2
+
+## IAM Security Tools
+These tools within IAM can be useful for audit purposes.
+
+### IAM Credentials Report
+This is an account-level report that lists all the account's users and the status of their credentials.
+### IAM Access Advisor
+This tool is at the user-level and it shows the service permissions granted to a user and when those services were last accessed, this information can be used to revise your policies.
+
+# IAM Guidelines & Best Practices
+- __Don't use the root account__ except for AWS account setup, or for performing tasks that can only be performed by the root user
+- For every individual that uses the account, __create them their own AWS IAM user__ (i.e. don't create a single user for multiple people)
+- Assign __users to groups__, and assign __permissions to groups__
+- Create a __strong password policy__
+- Use and enforce the use of __MFA__
+- Create and use __roles__ for giving permissions to AWS services
+- Use __access keys__ for programmatic access (CLI/SDK)
+- Audit permissions of your account with the __IAM Credentials Report__
+- **Never share IAM users & access keys**
