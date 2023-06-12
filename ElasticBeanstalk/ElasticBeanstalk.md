@@ -1,0 +1,2 @@
+# AWS Elastic Beanstalk
+Elastic Beanstalk is a Platform as a Service and a managed service in AWS that allows developers to quickly deploy and manage applications in AWS cloud without having to worry about the underlying infrastructure. With Beanstalk you simply upload your application, while it handles capacity provisioning, load balancing, scaling, and application health monitoring. Simply the application code is the responsibility of the developer.
