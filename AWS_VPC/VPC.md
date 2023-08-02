@@ -1,5 +1,5 @@
 # VPC - Virtual Private Cloud
-A VPC is a virtual network that closely resembles a traditional network that you'd operate in your own data centre, but with the benefits of using the scalable infrastructure of AWS. Amazon VPC enables you to launch AWS resources into a virtual network that you've defined.
+A VPC is a virtual network that closely resembles a traditional network that you'd operate in your own data centre, but with the benefits of using the scalable infrastructure of AWS. Amazon VPC enables you to launch AWS resources into a virtual network that you've defined and that is isolated from the rest of the AWS public cloud, so you can manage all these resources privately.
 
 AWS provides us with a default VPC, which we can view in the VPC console.
 
